@@ -3,11 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Contagem Regressiva do Amor 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-  /* Fonte e corpo */
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-                 Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    font-family: 'Arial', 'Helvetica', sans-serif;
     text-align: center;
     padding: 50px 20px;
     margin: 0;
@@ -20,21 +19,20 @@
     overflow: hidden;
   }
 
-  /* Título */
   h1 {
-    font-size: clamp(2rem, 6vw, 3em);
+    font-size: 2em; /* Desktop */
     margin-bottom: 20px;
     text-shadow: 2px 2px 12px #a9084b;
+    line-height: 1.2em;
   }
 
-  /* Parágrafo da mensagem */
   p {
-    font-size: clamp(1.3rem, 4vw, 2em);
+    font-size: 1.5em; /* Desktop */
     max-width: 600px;
     margin: 20px auto;
+    line-height: 1.3em;
   }
 
-  /* Barra de progresso */
   .progress-container {
     width: 80%;
     height: 40px;
@@ -69,42 +67,28 @@
     100% {box-shadow: 0 0 20px #ff4d6d, 0 0 40px #ff9a9e;}
   }
 
-  /* Botões responsivos */
   button {
-    font-family: inherit;
-    font-size: clamp(1.2rem, 4vw, 1.6rem);
-    padding: clamp(10px, 2vw, 18px) clamp(20px, 4vw, 28px);
+    font-family: 'Arial', 'Helvetica', sans-serif;
+    background-color: #ff4d6d;
+    border: none;
+    padding: 10px 20px;
+    color: #fff;
+    font-size: 1em;
     border-radius: 20px;
     cursor: pointer;
     margin: 5px;
-    background-color: #ff4d6d;
-    border: none;
-    color: #fff;
-    transition: background-color 0.3s ease;
   }
 
-  button:hover { background-color: #e04360; }
-  button:disabled {
-    background-color: #aaa;
-    cursor: not-allowed;
-  }
+  button:hover {background-color: #e04360;}
+  button:disabled {background-color: #aaa; cursor: not-allowed;}
 
-  @media (max-width: 360px) {
-    button {
-      font-size: 1.4rem;
-      padding: 12px 24px;
-    }
-  }
-
-  /* Chuva de corações */
   .heart-fall {
     position: fixed;
-    font-size: 28px;
-    animation: fall linear infinite, fadeInOut 4s ease-in-out;
+    font-size: 20px;
+    animation: fall linear infinite, fadeInOut 4s linear;
     color: #ff4d6d;
     user-select: none;
     pointer-events: none;
-    opacity: 0;
   }
 
   @keyframes fall {
@@ -116,34 +100,41 @@
     0%,100% {opacity: 0;}
     50% {opacity: 1;}
   }
-#rodape {
+
+  footer {
   position: fixed;
   bottom: 0;
+  left: 0;
   width: 100%;
   text-align: center;
-  color: #332828c7;
-  padding: 10px 0;
-  background: rgba(255,255,255,0.1); /* leve transparência */
-  font-size: 1em; /* padrão desktop */
-  z-index: 10; /* garante que fique acima de outros elementos */
+  padding: 6px 0;
+  font-size: 0.85em;
+  color: #fff;
+  text-shadow: 1px 1px 3px #000;
+  background: rgba(0,0,0,0.1);
+  margin: 0;
 }
 
-/* Responsivo para tablets */
-@media (max-width: 1024px) {
-  #rodape {
-    font-size: 1.2em;
+  /* Responsividade para Mobile */
+  @media (max-width: 768px) {
+    h1 {font-size: 1.4em;}    /* menor no mobile */
+    p {font-size: 1em;}       /* menor no mobile */
+    button {font-size: 0.95em; padding: 8px 16px;}
+    .progress-container {height: 40px;}
+    .progress-bar {line-height: 40px;}
+    footer {font-size: 0.95em;}
+  }
+
+  /* Ajuste para telas mobile */
+@media screen and (max-width: 768px) {
+  footer {
+    font-size: 0.65em; /* Reduz a fonte no mobile */
+    padding: 8px 0;
   }
 }
-
-/* Responsivo para mobiles */
-@media (max-width: 600px) {
-  #rodape {
-    font-size: 1.5em;
-  }
-}
-
 </style>
-  
+
+
 
 
 </head>
@@ -164,6 +155,8 @@
 
 <iframe id="musicaDia" allow="autoplay" src="" allow="autoplay" style="border:0; width:0; height:0;"></iframe>
 
+<footer>Desenvolvido com muito amor por Luana Luz 💖</footer>
+
 <script>
 const mensagens = [
   "Dia 1: Sinto sua falta mais que ontem 💔",
@@ -174,7 +167,7 @@ const mensagens = [
   "Dia 6: Saudade do seu beijos & dengos meu Bolinho 😘✨",
   "Dia 7: Meu deus, os dias não passam ... êê saudade 😢",
   "Dia 8: Cada lembrança sua aquece meu coração ❤️",
-  "Dia 9: Mal posso esperar para o nosso abraço 🥰",
+  "Dia 9: Mal posso esperar para o nosso<br>encontro 🥰",
   "Dia 10: Minha saudade cresce, mas meu amor você também 💖",
   "Dia 11: 22 dias, mas parece uma eternidade 😢",
   "Dia 12: Pensando em você o dia todo 🥰",
@@ -257,19 +250,17 @@ function atualizar() {
 
   if(dataAtualFormatada === diaGrande) {
     titulo.textContent = "Hoje é o grande dia! 💖";
-    mensagem.textContent = mensagemGrandeDia;
+    mensagem.innerHTML = mensagemGrandeDia;
     progressBar.classList.add("explosao");
     startHeartRain();
   } else {
-    titulo.textContent = `Faltam ${30 - (diaAtual+1)} dias para nosso encontro 🍀✨`;
-    mensagem.textContent = mensagens[diaAtual];
+    titulo.innerHTML = `Faltam ${30 - (diaAtual+1)} dias para nosso encontro 🍀✨`;
+    mensagem.innerHTML = mensagens[diaAtual];
     progressBar.classList.remove("explosao");
     stopHeartRain();
   }
 
   musicaDia.src = musicas[diaAtual];
-
-  // Limitar botão próximo
   btnProximo.disabled = diaAtual >= diffDays;
 }
 
@@ -305,7 +296,4 @@ function stopHeartRain() {
 atualizar();
 </script>
 </body>
-<footer id="rodape">
-  Desenvolvido com muito amor por Luana Luz 💖
-</footer>
 </html>
