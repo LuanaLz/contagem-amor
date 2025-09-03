@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Contagem Regressiva do Amor 💖</title>
+<style>
+  /* Fonte e corpo */
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+                 Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    text-align: center;
+    padding: 50px 20px;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: linear-gradient(to bottom right, #89f7fe, #66a6ff);
+    color: #332828c7;
+    overflow: hidden;
+  }
+
+  /* Título */
+  h1 {
+    font-size: clamp(2rem, 6vw, 3em);
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 12px #a9084b;
+  }
+
+  /* Parágrafo da mensagem */
+  p {
+    font-size: clamp(1.3rem, 4vw, 2em);
+    max-width: 600px;
+    margin: 20px auto;
+  }
+
+  /* Barra de progresso */
+  .progress-container {
+    width: 80%;
+    height: 40px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 20px;
+    margin: 0 auto 30px auto;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    position: relative;
+  }
+
+  .progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #ff4d6d, #ff9a9e, #ffc3a0);
+    border-radius: 20px;
+    text-align: center;
+    line-height: 40px;
+    color: white;
+    font-weight: bold;
+    transition: width 1s ease-in-out, box-shadow 0.3s ease;
+    box-shadow: 0 0 15px #ff4d6d;
+  }
+
+  .progress-bar.explosao {
+    animation: explode 1s ease-in-out infinite alternate;
+  }
+
+  @keyframes explode {
+    0% {box-shadow: 0 0 20px #ff4d6d, 0 0 40px #ff9a9e;}
+    50% {box-shadow: 0 0 50px #ff4d6d, 0 0 100px #ff9a9e;}
+    100% {box-shadow: 0 0 20px #ff4d6d, 0 0 40px #ff9a9e;}
+  }
+
+  /* Botões responsivos */
+  button {
+    font-family: inherit;
+    font-size: clamp(1.2rem, 4vw, 1.6rem);
+    padding: clamp(10px, 2vw, 18px) clamp(20px, 4vw, 28px);
+    border-radius: 20px;
+    cursor: pointer;
+    margin: 5px;
+    background-color: #ff4d6d;
+    border: none;
+    color: #fff;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover { background-color: #e04360; }
+  button:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+  }
+
+  @media (max-width: 360px) {
+    button {
+      font-size: 1.4rem;
+      padding: 12px 24px;
+    }
+  }
+
+  /* Chuva de corações */
+  .heart-fall {
+    position: fixed;
+    font-size: 28px;
+    animation: fall linear infinite, fadeInOut 4s ease-in-out;
+    color: #ff4d6d;
+    user-select: none;
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  @keyframes fall {
+    0% {transform: translateY(-50px) rotate(0deg);}
+    100% {transform: translateY(110vh) rotate(360deg);}
+  }
+
+  @keyframes fadeInOut {
+    0%,100% {opacity: 0;}
+    50% {opacity: 1;}
+  }
+#rodape {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  color: #332828c7;
+  padding: 10px 0;
+  background: rgba(255,255,255,0.1); /* leve transparência */
+  font-size: 1em; /* padrão desktop */
+  z-index: 10; /* garante que fique acima de outros elementos */
+}
+
+/* Responsivo para tablets */
+@media (max-width: 1024px) {
+  #rodape {
+    font-size: 1.2em;
+  }
+}
+
+/* Responsivo para mobiles */
+@media (max-width: 600px) {
+  #rodape {
+    font-size: 1.5em;
+  }
+}
+
+</style>
+  
+
+
+</head>
+<body>
+
+<h1 id="titulo">Carregando contagem...</h1>
+
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar">0%</div>
+</div>
+
+<p id="mensagem">Carregando mensagem...</p>
+
+<div class="botoes">
+  <button id="anterior">Mensagem do dia anterior 💌</button>
+  <button id="proximo">Mensagem do próximo dia 💌</button>
+</div>
+
+<iframe id="musicaDia" allow="autoplay" src="" allow="autoplay" style="border:0; width:0; height:0;"></iframe>
+
+<script>
+const mensagens = [
+  "Dia 1: Sinto sua falta mais que ontem 💔",
+  "Dia 2: Um dia a menos para te abraçar 💖",
+  "Dia 3: Meu coração está contando cada segundo pra gente se ver 😍",
+  "Dia 4: Cada minuto longe de você parece eterno 😢",
+  "Dia 5: 27 dias, esse número é estranho pra você? Pois é, 27 dias nos separam 💞",
+  "Dia 6: Saudade do seu beijos & dengos meu Bolinho 😘✨",
+  "Dia 7: Meu deus, os dias não passam ... êê saudade 😢",
+  "Dia 8: Cada lembrança sua aquece meu coração ❤️",
+  "Dia 9: Mal posso esperar para o nosso abraço 🥰",
+  "Dia 10: Minha saudade cresce, mas meu amor você também 💖",
+  "Dia 11: 22 dias, mas parece uma eternidade 😢",
+  "Dia 12: Pensando em você o dia todo 🥰",
+  "Dia 13: Meus pensamentos só querem você ❤️",
+  "Dia 14: Faltam 18 dias! Estou ansiosa ✨",
+  "Dia 15: Estamos quase lá, falta pouco 🌈",
+  "Dia 16: Contando cada segundo para nosso encontro ⏳",
+  "Dia 17: Cada dia que passa, te amo mais meu amor 💞",
+  "Dia 18: 14 dias… calma vida! ❤️",
+  "Dia 19: A saudade ta grande, mas logo acaba 🕰️💓",
+  "Dia 20: 12 dias… meu coração está ansioso 😢",
+  "Dia 21: Pensando em você constantemente 💖",
+  "Dia 22: 10 dias! Mal posso esperar ⏱️",
+  "Dia 23: Cada dia longe parece um século 😭",
+  "Dia 24: 8 dias… meu coração bate forte 💖",
+  "Dia 25: Cada segundo longe de você, me deixa com mais certeza que te quero 🥰",
+  "Dia 26: 6 dias… quase posso sentir seu cheiro 💘",
+  "Dia 27: AHHHHH!! FALTA POUCO 🌈✨",
+  "Dia 28: 4 dias! Ansiedade a MIIIIL 💞",
+  "Dia 29: 2 dias meu amor! Quase lá! ❤️",
+  "Dia 30: Último dia antes do nosso grande encontro. Ta pronta? 😍"
+];
+
+const musicas = [
+  "https://www.youtube.com/embed/lFxXFq2zWOo?autoplay=1&controls=0&loop=1&playlist=lFxXFq2zWOo",
+  "https://www.youtube.com/embed/O7x2xxKhCTc?autoplay=1&controls=0&loop=1&playlist=O7x2xxKhCTc",
+  "https://www.youtube.com/embed/TXtXUGxWATw?autoplay=1&controls=0&loop=1&playlist=TXtXUGxWATw",
+  "https://www.youtube.com/embed/a59gmGkq_pw?autoplay=1&controls=0&loop=1&playlist=a59gmGkq_pw",
+  "https://www.youtube.com/embed/BkpqU3gdjlw?autoplay=1&controls=0&loop=1&playlist=BkpqU3gdjlw",
+  "https://www.youtube.com/embed/K7NmojGLvxg?autoplay=1&controls=0&loop=1&playlist=K7NmojGLvxg",
+  "https://www.youtube.com/embed/dD6MedpQykI?autoplay=1&controls=0&loop=1&playlist=dD6MedpQykI",
+  "https://www.youtube.com/embed/zsnq3RfwvHM?autoplay=1&controls=0&loop=1&playlist=zsnq3RfwvHM",
+  "https://www.youtube.com/embed/tyJ-VnB8X20?autoplay=1&controls=0&loop=1&playlist=tyJ-VnB8X20",
+  "https://www.youtube.com/embed/rEnD32kbw6I?autoplay=1&controls=0&loop=1&playlist=rEnD32kbw6I",
+  "https://www.youtube.com/embed/Q7MqdKQseOM?autoplay=1&controls=0&loop=1&playlist=Q7MqdKQseOM",
+  "https://www.youtube.com/embed/rOemX8-L2CI?autoplay=1&controls=0&loop=1&playlist=rOemX8-L2CI",
+  "https://www.youtube.com/embed/E_4SLn4U4Q8?autoplay=1&controls=0&loop=1&playlist=E_4SLn4U4Q8",
+  "https://www.youtube.com/embed/KptyBFemLec?autoplay=1&controls=0&loop=1&playlist=KptyBFemLec",
+  "https://www.youtube.com/embed/GiXHRwNTu_I?autoplay=1&controls=0&loop=1&playlist=GiXHRwNTu_I",
+  "https://www.youtube.com/embed/6RGM3TQJSWQ?autoplay=1&controls=0&loop=1&playlist=6RGM3TQJSWQ",
+  "https://www.youtube.com/embed/dapZCwYxyD8?autoplay=1&controls=0&loop=1&playlist=dapZCwYxyD8",
+  "https://www.youtube.com/embed/-HmxRK_8hMk?autoplay=1&controls=0&loop=1&playlist=-HmxRK_8hMk",
+  "https://www.youtube.com/embed/4pFcO-LCmu8?autoplay=1&controls=0&loop=1&playlist=4pFcO-LCmu8",
+  "https://www.youtube.com/embed/mdb8L87DU58?autoplay=1&controls=0&loop=1&playlist=mdb8L87DU58",
+  "https://www.youtube.com/embed/VUf32ZK-Jd0?autoplay=1&controls=0&loop=1&playlist=VUf32ZK-Jd0",
+  "https://www.youtube.com/embed/H4vuBDulgdk?autoplay=1&controls=0&loop=1&playlist=H4vuBDulgdk",
+  "https://www.youtube.com/embed/ivHE7pQEEHI?autoplay=1&controls=0&loop=1&playlist=ivHE7pQEEHI",
+  "https://www.youtube.com/embed/lhvNgPjBP4Y?autoplay=1&controls=0&loop=1&playlist=lhvNgPjBP4Y",
+  "https://www.youtube.com/embed/FEpuC98wcXE?autoplay=1&controls=0&loop=1&playlist=FEpuC98wcXE",
+  "https://www.youtube.com/embed/Ymp-rKbjEs0?autoplay=1&controls=0&loop=1&playlist=Ymp-rKbjEs0",
+  "https://www.youtube.com/embed/5tiY3VZn200?autoplay=1&controls=0&loop=1&playlist=5tiY3VZn200",
+  "https://www.youtube.com/embed/nyuo9-OjNNg?autoplay=1&controls=0&loop=1&playlist=nyuo9-OjNNg",
+  "https://www.youtube.com/embed/IEU3WfxSCLE?autoplay=1&controls=0&loop=1&playlist=IEU3WfxSCLE"
+];
+
+const mensagemGrandeDia = "Finalmente hoje é o grande dia! Vou te abraçar e te encher de beijos de saudades 💖";
+const diaGrande = "2/10/2025";
+
+let dataInicio = new Date("2025-09-02");
+let dataHoje = new Date();
+let diffTime = dataHoje - dataInicio;
+let diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+if(diffDays < 0) diffDays = 0;
+if(diffDays > 29) diffDays = 29;
+
+const titulo = document.getElementById("titulo");
+const mensagem = document.getElementById("mensagem");
+const progressBar = document.getElementById("progressBar");
+const musicaDia = document.getElementById("musicaDia");
+const btnProximo = document.getElementById("proximo");
+
+let diaAtual = diffDays;
+
+function atualizar() {
+  let porcentagem = Math.floor(((diaAtual+1)/30)*100);
+  progressBar.style.width = porcentagem + "%";
+  progressBar.textContent = porcentagem + "%";
+
+  let dataAtualFormatada = `${dataHoje.getDate()}/${dataHoje.getMonth()+1}/${dataHoje.getFullYear()}`;
+
+  if(dataAtualFormatada === diaGrande) {
+    titulo.textContent = "Hoje é o grande dia! 💖";
+    mensagem.textContent = mensagemGrandeDia;
+    progressBar.classList.add("explosao");
+    startHeartRain();
+  } else {
+    titulo.textContent = `Faltam ${30 - (diaAtual+1)} dias para nosso encontro 🍀✨`;
+    mensagem.textContent = mensagens[diaAtual];
+    progressBar.classList.remove("explosao");
+    stopHeartRain();
+  }
+
+  musicaDia.src = musicas[diaAtual];
+
+  // Limitar botão próximo
+  btnProximo.disabled = diaAtual >= diffDays;
+}
+
+document.getElementById("anterior").addEventListener("click", () => {
+  if(diaAtual > 0) {
+    diaAtual--;
+    atualizar();
+  }
+});
+
+document.getElementById("proximo").addEventListener("click", () => {
+  if(diaAtual < diffDays) {
+    diaAtual++;
+    atualizar();
+  }
+});
+
+function startHeartRain() {
+  for(let i=0;i<50;i++){
+    let heart = document.createElement("div");
+    heart.classList.add("heart-fall");
+    heart.style.left = Math.random()*100 + "vw";
+    heart.style.animationDuration = 3 + Math.random()*3 + "s";
+    heart.textContent = "💖";
+    document.body.appendChild(heart);
+  }
+}
+
+function stopHeartRain() {
+  document.querySelectorAll(".heart-fall").forEach(h => h.remove());
+}
+
+atualizar();
+</script>
+</body>
+<footer id="rodape">
+  Desenvolvido com muito amor por Luana Luz 💖
+</footer>
+</html>
