@@ -188,7 +188,8 @@ const mensagens = [
   "Dia 27: AHHHHH!! FALTA POUCO 🌈✨",
   "Dia 28: 4 dias! Ansiedade a MIIIIL 💞",
   "Dia 29: 2 dias meu amor! Quase lá! ❤️",
-  "Dia 30: Último dia antes do nosso grande encontro. Ta pronta? 😍"
+  "Dia 30: Tchau Setembro!! Vem Outubro pra eu ver o amor da minha vida 😍",
+  "Dia 31: Último dia antes do nosso grande encontro. Ta pronta? 😍"
 ];
 
 const musicas = [
@@ -226,12 +227,12 @@ const musicas = [
 const mensagemGrandeDia = "Finalmente hoje é o grande dia! Vou te abraçar e te encher de beijos de saudades 💖";
 const diaGrande = "2/10/2025";
 
-let dataInicio = new Date("2025-09-02");
+let dataInicio = new Date("2025-09-01");
 let dataHoje = new Date();
 let diffTime = dataHoje - dataInicio;
-let diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+let diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) - 1;
 if(diffDays < 0) diffDays = 0;
-if(diffDays > 29) diffDays = 29;
+if(diffDays > 31) diffDays = 31;
 
 const titulo = document.getElementById("titulo");
 const mensagem = document.getElementById("mensagem");
@@ -254,13 +255,13 @@ function atualizar() {
     progressBar.classList.add("explosao");
     startHeartRain();
   } else {
-    titulo.innerHTML = `Faltam ${30 - (diaAtual+1)} dias para nosso encontro 🍀✨`;
-    mensagem.innerHTML = mensagens[diaAtual];
+    titulo.innerHTML = `Faltam ${31 - (diaAtual+1)} dias para nosso encontro 🍀✨`;
+    mensagem.innerHTML = mensagens[diaAtual+1];
     progressBar.classList.remove("explosao");
     stopHeartRain();
   }
 
-  musicaDia.src = musicas[diaAtual];
+  musicaDia.src = musicas[diaAtual+1];
   btnProximo.disabled = diaAtual >= diffDays;
 }
 
