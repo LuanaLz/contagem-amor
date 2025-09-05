@@ -197,6 +197,7 @@ const musicas = [
   "https://www.youtube.com/embed/O7x2xxKhCTc?autoplay=1&controls=0&loop=1&playlist=O7x2xxKhCTc",
   "https://www.youtube.com/embed/TXtXUGxWATw?autoplay=1&controls=0&loop=1&playlist=TXtXUGxWATw",
   "https://www.youtube.com/embed/a59gmGkq_pw?autoplay=1&controls=0&loop=1&playlist=a59gmGkq_pw",
+  "https://www.youtube.com/embed/cdQROwNBX4Q?autoplay=1&controls=0&loop=1&playlist=cdQROwNBX4Q",
   "https://www.youtube.com/embed/BkpqU3gdjlw?autoplay=1&controls=0&loop=1&playlist=BkpqU3gdjlw",
   "https://www.youtube.com/embed/K7NmojGLvxg?autoplay=1&controls=0&loop=1&playlist=K7NmojGLvxg",
   "https://www.youtube.com/embed/dD6MedpQykI?autoplay=1&controls=0&loop=1&playlist=dD6MedpQykI",
@@ -221,7 +222,9 @@ const musicas = [
   "https://www.youtube.com/embed/Ymp-rKbjEs0?autoplay=1&controls=0&loop=1&playlist=Ymp-rKbjEs0",
   "https://www.youtube.com/embed/5tiY3VZn200?autoplay=1&controls=0&loop=1&playlist=5tiY3VZn200",
   "https://www.youtube.com/embed/nyuo9-OjNNg?autoplay=1&controls=0&loop=1&playlist=nyuo9-OjNNg",
-  "https://www.youtube.com/embed/IEU3WfxSCLE?autoplay=1&controls=0&loop=1&playlist=IEU3WfxSCLE"
+  "https://www.youtube.com/embed/IEU3WfxSCLE?autoplay=1&controls=0&loop=1&playlist=IEU3WfxSCLE",
+  // nova música adicionada:
+  
 ];
 
 const mensagemGrandeDia = "Finalmente hoje é o grande dia! Vou te abraçar e te encher de beijos de saudades 💖";
@@ -261,7 +264,7 @@ function atualizar() {
     stopHeartRain();
   }
 
-  musicaDia.src = musicas[diaAtual+1];
+  musicaDia.src = musicas[diaAtual];
   btnProximo.disabled = diaAtual >= diffDays;
 }
 
