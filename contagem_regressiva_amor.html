@@ -91,6 +91,38 @@
     pointer-events: none;
   }
 
+  .video-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px; /* limite no desktop */
+    margin: 0 auto; /* centraliza na tela */
+    padding-bottom: 56.25%; /* proporção 16:9 */
+    height: 0;
+  }
+
+  .video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px; /* opcional: cantos arredondados */
+  }
+
+  /* Ajustes finos para mobile */
+  @media (max-width: 768px) {
+    .video-container {
+      max-width: 100%;
+      padding-bottom: 56.25%;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .video-container {
+      padding-bottom: 65%; /* deixa mais alto em telas pequenas */
+    }
+  }
+
   @keyframes fall {
     0% {transform: translateY(-50px) rotate(0deg);}
     100% {transform: translateY(110vh) rotate(360deg);}
@@ -147,6 +179,7 @@
 </div>
 
 <p id="mensagem">Carregando mensagem...</p>
+<div id="videoContainer"></div>
 
 <div class="botoes">
   <button id="anterior">Mensagem do dia anterior 💌</button>
@@ -183,13 +216,13 @@ const mensagens = [
   "Dia 22: 10 dias! Mal posso esperar ⏱️",
   "Dia 23: Cada dia longe parece um século 😭",
   "Dia 24: 8 dias… meu coração bate forte 💖",
-  "Dia 25: Cada segundo longe de você, me deixa com mais certeza que te quero 🥰",
+  "Dia 25: AHHHHHHHH!! FALTA POUCO 🌈✨",
   "Dia 26: 6 dias… quase posso sentir seu cheiro 💘",
-  "Dia 27: AHHHHH!! FALTA POUCO 🌈✨",
+  "Feliz 27: Oi, Bolinho! Hoje vamos de surpresa. Te amo 💖✨",
   "Dia 28: 4 dias! Ansiedade a MIIIIL 💞",
   "Dia 29: 2 dias meu amor! Quase lá! ❤️",
   "Dia 30: Tchau Setembro!! Vem Outubro pra eu ver o amor da minha vida 😍",
-  "Dia 31: Último dia antes do nosso grande encontro. Ta pronta? 😍"
+  "Dia 1: Último dia antes do nosso grande encontro. Ta pronta? 😍"
 ];
 
 const musicas = [
@@ -219,15 +252,15 @@ const musicas = [
   "https://www.youtube.com/embed/ivHE7pQEEHI?autoplay=1&controls=0&loop=1&playlist=ivHE7pQEEHI",
   "https://www.youtube.com/embed/lhvNgPjBP4Y?autoplay=1&controls=0&loop=1&playlist=lhvNgPjBP4Y",
   "https://www.youtube.com/embed/FEpuC98wcXE?autoplay=1&controls=0&loop=1&playlist=FEpuC98wcXE",
-  "https://www.youtube.com/embed/Ymp-rKbjEs0?autoplay=1&controls=0&loop=1&playlist=Ymp-rKbjEs0",
+  "https://www.youtube.com/embed/5grvotp20FE?autoplay=1&controls=0&loop=1&playlist=5grvotp20FE",
+  "https://www.youtube.com/embed/Ymp-rKbjEs0?autoplay=1&controls=0&loop=1&playlist=Ymp-rKbjEs0",  
   "https://www.youtube.com/embed/5tiY3VZn200?autoplay=1&controls=0&loop=1&playlist=5tiY3VZn200",
   "https://www.youtube.com/embed/nyuo9-OjNNg?autoplay=1&controls=0&loop=1&playlist=nyuo9-OjNNg",
-  "https://www.youtube.com/embed/IEU3WfxSCLE?autoplay=1&controls=0&loop=1&playlist=IEU3WfxSCLE",
   // nova música adicionada:
   
 ];
 
-const mensagemGrandeDia = "Finalmente hoje é o grande dia! Vou te abraçar e te encher de beijos de saudades 💖";
+const mensagemGrandeDia = "2 de Outubro: <br> Finalmente hoje é o grande dia meu amor! <br> Vou te abraçar e te encher de beijos de saudades 💖";
 const diaGrande = "2/10/2025";
 
 let dataInicio = new Date("2025-09-01");
@@ -242,6 +275,7 @@ const mensagem = document.getElementById("mensagem");
 const progressBar = document.getElementById("progressBar");
 const musicaDia = document.getElementById("musicaDia");
 const btnProximo = document.getElementById("proximo");
+const videoContainer = document.getElementById("videoContainer");
 
 let diaAtual = diffDays;
 
@@ -251,10 +285,19 @@ function atualizar() {
   progressBar.textContent = porcentagem + "%";
 
   let dataAtualFormatada = `${dataHoje.getDate()}/${dataHoje.getMonth()+1}/${dataHoje.getFullYear()}`;
+  videoContainer.innerHTML = "";
 
   if(dataAtualFormatada === diaGrande) {
-    titulo.textContent = "Hoje é o grande dia! 💖";
+    titulo.textContent = "Hoje é o grande dia! 🍀✨";
     mensagem.innerHTML = mensagemGrandeDia;
+
+     // Música especial
+    musicaDia.src = "https://www.youtube.com/embed/IEU3WfxSCLE?autoplay=1&controls=0&loop=1&playlist=IEU3WfxSCLE";
+
+    // Imagem especial
+    mensagem.innerHTML += `<br><img src="img_bolinho.jpg" 
+      alt="Bolinho" style="max-width:300px; margin-top:20px; border-radius:10px;">`;
+
     progressBar.classList.add("explosao");
     startHeartRain();
   } else {
@@ -262,9 +305,26 @@ function atualizar() {
     mensagem.innerHTML = mensagens[diaAtual+1];
     progressBar.classList.remove("explosao");
     stopHeartRain();
+
+    if(diaAtual === 26) { // Dia 27
+      videoContainer.innerHTML = `
+        <div class="video-container">
+          <iframe 
+            src="https://www.youtube.com/embed/BiLldsvN6L4" 
+            title="Porque te amo? Simples assim .." 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+          </iframe>
+        </div>
+      `;
+      musicaDia.src = "";
+    }else {
+      musicaDia.src = musicas[diaAtual];
+    }
   }
 
-  musicaDia.src = musicas[diaAtual];
+ // musicaDia.src = musicas[diaAtual];
   btnProximo.disabled = diaAtual >= diffDays;
 }
 
