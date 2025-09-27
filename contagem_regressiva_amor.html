@@ -306,7 +306,9 @@ function atualizar() {
     progressBar.classList.remove("explosao");
     stopHeartRain();
 
-    if(diaAtual === 26) { // Dia 27
+    //console.log(diaAtual);
+
+    if(diaAtual === 25) { // Dia 27
       videoContainer.innerHTML = `
         <div class="video-container">
           <iframe 
@@ -316,6 +318,9 @@ function atualizar() {
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
             allowfullscreen>
           </iframe>
+        </div>
+        <div>
+          <a href="https://www.youtube.com/embed/BiLldsvN6L4" target="_blank">🎬 Clique aqui para assistir ao vídeo</a>
         </div>
       `;
       musicaDia.src = "";
